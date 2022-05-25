@@ -1,0 +1,15 @@
+groups:
+  - name: {{ .RuleName }}
+    rules: {{ range .Rules }}
+      - alert: {{ .AlertName }}
+        annotations:
+          message: >-
+            {{ .Message }}
+          summary: {{ .Summary }}
+        expr: |
+          {{ .Expr }}
+        for: {{ .Duration }}
+        labels:
+          severity: {{ .Severity }}{{ range .Labels }}
+          {{ . }}
+{{ end }}{{ end }}
